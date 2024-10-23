@@ -1,9 +1,6 @@
 package co.edu.uniquindio.UniEventos.repositorios;
 
-import co.edu.uniquindio.UniEventos.modelo.EstadoEvento;
-import co.edu.uniquindio.UniEventos.modelo.Evento;
-import co.edu.uniquindio.UniEventos.modelo.TipoEvento;
-import co.edu.uniquindio.UniEventos.modelo.Usuario;
+import co.edu.uniquindio.UniEventos.modelo.*;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,6 +18,8 @@ public interface EventoRepo extends MongoRepository<Evento, String> {
     // Filtra eventos por nombre, tipo y ciudad, con coincidencias parciales (insensible a mayúsculas)
     @Query("{'nombre': {$regex: ?0, $options: 'i'}, 'tipo': {$regex: ?1, $options: 'i'}, 'ciudad': {$regex: ?2, $options: 'i'}}")
     List<Evento> filtrarEventos(String nombre, String tipo, String ciudad);
+
+    long countByEstado(EstadoEvento estado);
 
     // Busca eventos en un rango de fechas
     @Query("{'fecha': { $gte: ?0, $lte: ?1 }}")

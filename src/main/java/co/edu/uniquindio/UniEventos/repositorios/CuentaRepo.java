@@ -1,5 +1,7 @@
 package co.edu.uniquindio.UniEventos.repositorios;
 import co.edu.uniquindio.UniEventos.modelo.Cuenta;
+import co.edu.uniquindio.UniEventos.modelo.EstadoCuenta;
+import co.edu.uniquindio.UniEventos.modelo.EstadoEvento;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,6 +18,8 @@ public interface CuentaRepo extends MongoRepository<Cuenta, String> {
 
     // Verifica si una cuenta con un ID específico existe
     boolean existsById(String id);
+
+    long countByEstado(EstadoCuenta estado);
 
     // Busca una cuenta opcional por cédula
     @Query("{ 'user.cedula': ?0 }")
