@@ -191,7 +191,7 @@ public class CuponServicioImpl implements CuponServicio {
     @Override
     public Cupon obtenerCupon(String codigo) throws CuponException {
         Optional<Cupon> cupon = cuponRepo.findByCodigo(codigo);
-        if (cupon.isEmpty()) { // Cambiar a isEmpty() para verificar si el cupon no está presente
+        if (cupon.isEmpty()) {
             throw new CuponException("El cupon con ese codigo no existe");
         }
         return cupon.get(); // Devuelve el cupón si está presente
