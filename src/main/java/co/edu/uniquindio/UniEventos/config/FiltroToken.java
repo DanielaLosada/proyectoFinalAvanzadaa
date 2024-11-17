@@ -55,24 +55,24 @@ public class FiltroToken extends OncePerRequestFilter {
             try {
 
                 //Si la petición es para la ruta /api/cliente se verifica que el token exista y que el rol sea CLIENTE
-                if (requestURI.startsWith("/api/cliente")) {
-                    error = validarToken(token, Rol.CLIENTE);
-                }else {
-                    error = false;
-                }
+//                if (requestURI.startsWith("/api/cliente")) {
+//                    error = validarToken(token, Rol.CLIENTE);
+//                }else {
+//                    error = false;
+//                }
 
 
                 //Agregar la validación para las peticiones que sean de los administradores
-                if (requestURI.startsWith("/api/admin")) {
-                    error = validarToken(token, Rol.ADMINISTRADOR);
-                }else {
-                    error = false;
-                }
-
-                //Si hay un error se crea una respuesta con el mensaje del error
-                if(error){
-                    crearRespuestaError("No tiene permisos para acceder a este recurso", HttpServletResponse.SC_FORBIDDEN, response);
-                }
+//                if (requestURI.startsWith("/api/admin")) {
+//                    error = validarToken(token, Rol.ADMINISTRADOR);
+//                }else {
+//                    error = false;
+//                }
+//
+//                //Si hay un error se crea una respuesta con el mensaje del error
+//                if(error){
+//                    crearRespuestaError("No tiene permisos para acceder a este recurso", HttpServletResponse.SC_FORBIDDEN, response);
+//                }
 
 
             } catch (MalformedJwtException | SignatureException e) {

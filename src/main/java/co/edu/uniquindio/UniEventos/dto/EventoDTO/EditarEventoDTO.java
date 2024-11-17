@@ -21,7 +21,6 @@ public record EditarEventoDTO(
         @NotNull(message = "La fecha es obligatoria") LocalDateTime fecha,
         @NotBlank(message = "El tipo de evento es obligatorio") TipoEvento tipo,
         @NotBlank(message = "El estado del evento es obligatorio") EstadoEvento estado,
-
         @URL(message = "La URL de la imagen del poster debe ser válida") String imagenPoster,
         @URL(message = "La URL de la imagen de localidades debe ser válida") String imagenLocalidades,
         @NotNull(message = "La lista de localidades es obligatoria") List<LocalidadDTO> localidades

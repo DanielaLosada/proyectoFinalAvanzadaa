@@ -28,18 +28,19 @@ public class EventoTest {
     public void crearEventoTest() throws Exception {
         // Crear DTO para el nuevo evento con datos de prueba
         CrearEventoDTO crearEventoDTO = new CrearEventoDTO(
-                "Concierto de Rock",
-                "Un increíble concierto de rock en vivo",
-                "Calle 123 #45-67",
-                "Bogotá",
-                LocalDateTime.of(2024, 12, 5, 19, 30),
-                TipoEvento.CONCIERTO,
-                "imagen_concierto.jpg",
-                "imagen_localidad.png",// fecha
+                "Ferxxocalipsis",
+                "Una de las giras más apabullantes, espectaculares y esperadas.",
+                "Estadio Atanisio Girardot",
+                "Medellin",
+                LocalDateTime.of(2024, 11, 30, 18, 00),
+                TipoEvento.TEATRO,
+                "https://firebasestorage.googleapis.com/v0/b/unieventos-54199.appspot.com/o/Ferxxo.jpg?alt=media&token=3e9bb32e-fd44-42fa-b33a-55558d6fd2e3",
+                "https://firebasestorage.googleapis.com/v0/b/unieventos-54199.appspot.com/o/TEATRO_MAYO_SAN_FRANCISCO_con_gral.jpg?alt=media&token=5bf0ae75-84d7-4970-afba-21d44779c94b",// fecha
                 List.of(                                // localidades
-                        new LocalidadDTO("Platinum", 500, 300000),   // Localidad Platinum, 500 asientos, 300,000 COP cada entrada
-                        new LocalidadDTO("General", 1000, 150000)),
-                        List.of(new CrearAlojamientoDTO("Hotel Real", "Armenia", 1500000, 56, 800, TipoAlojamiento.HOTEL, EstadoAlojamiento.ACTIVO))
+                        new LocalidadDTO("Platino", 400, 350000),   // Localidad Platinum, 500 asientos, 300,000 COP cada entrada
+                        new LocalidadDTO("General", 800, 200000),
+                        new LocalidadDTO("VIP", 200, 600000),
+                        new LocalidadDTO("PALCOS", 100, 1000000))
 
         );
         // Llamar al método de servicio para crear el evento

@@ -9,6 +9,7 @@ import co.edu.uniquindio.UniEventos.dto.CuponDTO.EditarCuponDTO;
 import co.edu.uniquindio.UniEventos.dto.EmailDTO.MensajeDTO;
 import co.edu.uniquindio.UniEventos.dto.EventoDTO.CrearEventoDTO;
 import co.edu.uniquindio.UniEventos.dto.EventoDTO.EditarEventoDTO;
+import co.edu.uniquindio.UniEventos.dto.EventoDTO.ItemEventoDTO;
 import co.edu.uniquindio.UniEventos.modelo.Cuenta;
 import co.edu.uniquindio.UniEventos.servicios.interfaces.AlojamientoServicio;
 import co.edu.uniquindio.UniEventos.servicios.interfaces.CuentaServicio;
@@ -45,6 +46,17 @@ public class AdminController {
     public ResponseEntity<MensajeDTO<String>> editarEvento(@Valid @RequestBody EditarEventoDTO editarEventoDTO) throws Exception {
         String message = eventoServicio.editarEvento(editarEventoDTO);
         return ResponseEntity.ok(new MensajeDTO<>(false, message));
+    }
+
+    @GetMapping("/evento/listar-eventos")
+    public ResponseEntity<MensajeDTO<List<ItemEventoDTO>>> listarEventos() {
+        List<ItemEventoDTO> eventos = eventoServicio.listarEventos();
+        return ResponseEntity.ok(new MensajeDTO<>(false, eventos));
+    }
+    @GetMapping("/evento/obtener-tipos")
+    public ResponseEntity<MensajeDTO<List<String>>> listarTipos() {
+        List<String> tipos = eventoServicio.listarTipos();
+        return ResponseEntity.ok(new MensajeDTO<>(false, tipos));
     }
 
     @DeleteMapping("/eliminar-evento/{id}")

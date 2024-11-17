@@ -26,4 +26,12 @@ public class PublicoController {
         List<ItemEventoDTO> eventos = eventoServicio.listarEventos();
         return ResponseEntity.ok(new MensajeDTO<>(false, eventos));
     }
+    @GetMapping("/evento/obtener-tipos")
+    public ResponseEntity<MensajeDTO<List<String>>> listarTipos() {
+        List<String> tipos = eventoServicio.listarTipos();
+        return ResponseEntity.ok(new MensajeDTO<>(false, tipos));
+    }
+
+
+
 }

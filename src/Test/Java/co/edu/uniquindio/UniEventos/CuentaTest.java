@@ -108,7 +108,7 @@ public class CuentaTest {
      */
     @Test
     public void obtenerInfoCuentaTest() throws Exception {
-        String idCuenta = "670870869d4fc3095516f9b1"; // ID de cuenta válida en la base de datos
+        String idCuenta = "670885b73255d028609d4242"; // ID de cuenta válida en la base de datos
 
         // Obtiene la información de la cuenta y verifica que no sea nula
         InfoCuentaDTO cuentaInfo = cuentaServicio.obtenerInformacionCuenta(idCuenta);

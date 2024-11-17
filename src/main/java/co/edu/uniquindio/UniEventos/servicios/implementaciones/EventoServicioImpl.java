@@ -1,6 +1,5 @@
 package co.edu.uniquindio.UniEventos.servicios.implementaciones;
 
-import co.edu.uniquindio.UniEventos.dto.AlojamientoDTO.CrearAlojamientoDTO;
 import co.edu.uniquindio.UniEventos.dto.EventoDTO.*;
 import co.edu.uniquindio.UniEventos.excepciones.EventoException;
 import co.edu.uniquindio.UniEventos.modelo.EstadoEvento;
@@ -16,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -145,6 +146,14 @@ public class EventoServicioImpl implements EventoServicio {
             ));
         }
         return respuesta;
+    }
+
+    @Override
+    public List<String> listarTipos() {
+        // Convierte los valores de la enumeración a una lista de cadenas
+        return Arrays.stream(TipoEvento.values())
+                .map(Enum::name) // Convierte cada valor del enum a su representación en String
+                .collect(Collectors.toList());
     }
 
     @Override

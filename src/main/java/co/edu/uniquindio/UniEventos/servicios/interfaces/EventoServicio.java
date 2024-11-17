@@ -19,6 +19,9 @@ public interface EventoServicio {
     InfoEventoDTO obtenerInformacionEvento(String id) throws Exception;
 
     List<ItemEventoDTO> listarEventos();
+
+    List<String> listarTipos();
+
     List<ItemEventoDTO> filtrarEventos(FiltroEventoDTO filtroEventoDTO);
 
     List<ItemEventoDTO> filtrarPorTipo(TipoEvento tipoEvento);
