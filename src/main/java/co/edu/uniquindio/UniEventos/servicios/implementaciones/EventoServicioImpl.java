@@ -115,19 +115,19 @@ public class EventoServicioImpl implements EventoServicio {
     }
 
     @Override
-    public InfoEventoDTO obtenerInformacionEvento(String id) throws EventoException {
-        Evento evento = eventoRepo.findById(id)
+    public InfoEventoDTO obtenerInformacionEvento(String nombre) throws EventoException {
+        Evento evento = eventoRepo.findByNombre(nombre)
                 .orElseThrow(() -> new EventoException("No se ha encontrado el evento"));
         return new InfoEventoDTO(
                 evento.getImagenPortada(),
+                evento.getImagenLocalidad(),
                 evento.getNombre(),
                 evento.getDescripcion(),
                 evento.getDireccion(),
                 evento.getTipo(),
                 evento.getFecha(),
                 evento.getCiudad(),
-                evento.getLocalidades(),
-                evento.getAlojamientosCercanos()
+                evento.getLocalidades()
         );
     }
 
@@ -158,19 +158,41 @@ public class EventoServicioImpl implements EventoServicio {
 
     @Override
     public List<ItemEventoDTO> filtrarEventos(FiltroEventoDTO filtroEventoDTO) {
-        List<ItemEventoDTO> respuesta = new ArrayList<>();
-        List<Evento> eventos= eventoRepo.filtrarEventos(filtroEventoDTO.nombre(),filtroEventoDTO.tipoEvento().toString(), filtroEventoDTO.ciudad());
-        for(Evento evento : eventos){
-            respuesta.add(new ItemEventoDTO(
-                    evento.getImagenPortada(),
-                    evento.getNombre(),
-                    evento.getFecha(),
-                    evento.getDireccion(),
-                    evento.getTipo()
-            ));
+        List<Evento> eventos = new ArrayList<>();
+
+        String nombre = filtroEventoDTO.nombre();
+        TipoEvento tipoEvento = filtroEventoDTO.tipoEvento();
+        String ciudad = filtroEventoDTO.ciudad();
+
+        if (nombre != null && tipoEvento == null && ciudad == null) {
+            eventos = eventoRepo.findByNombreRegex(nombre);
+        } else if (nombre == null && tipoEvento != null && ciudad == null) {
+            eventos = eventoRepo.findByTipo(tipoEvento);
+        } else if (nombre == null && tipoEvento == null && ciudad != null) {
+            eventos = eventoRepo.findByCiudadRegex(ciudad);
+        } else if (nombre != null && tipoEvento != null && ciudad == null) {
+            eventos = eventoRepo.findByNombreRegexAndTipo(nombre, tipoEvento.toString());
+        } else if (nombre != null && tipoEvento == null && ciudad != null) {
+            eventos = eventoRepo.findByNombreRegexAndCiudadRegex(nombre, ciudad);
+        } else if (nombre == null && tipoEvento != null && ciudad != null) {
+            eventos = eventoRepo.findByTipoAndCiudadRegex(tipoEvento.toString(), ciudad);
+        } else if (nombre != null && tipoEvento != null && ciudad != null) {
+            eventos = eventoRepo.findByNombreRegexAndTipoAndCiudadRegex(nombre, tipoEvento.toString(), ciudad);
         }
+
+        // Conversión de la lista de eventos a DTOs
+        List<ItemEventoDTO> respuesta = eventos.stream().map(evento -> new ItemEventoDTO(
+                evento.getImagenPortada(),
+                evento.getNombre(),
+                evento.getFecha(),
+                evento.getDireccion(),
+                evento.getTipo()
+        )).collect(Collectors.toList());
+
         return respuesta;
     }
+
+
 
     @Override
     public List<ItemEventoDTO> filtrarPorTipo(TipoEvento tipoEvento) {

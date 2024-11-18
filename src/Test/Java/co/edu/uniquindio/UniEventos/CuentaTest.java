@@ -37,12 +37,12 @@ public class CuentaTest {
     @Test
     public void crearCuentaTest() {
         CrearCuentaDTO crearCuentaDTO = new CrearCuentaDTO(
-                "1095550251", // Identificación
-                "Ximena Ruiz", // Nombre
-                "3245478325", // Número de teléfono
-                "Crr 12 # 12-2", // Dirección
-                "angiex.ruizr@uqvirtual.edu.co", // Correo   (para que funcione el envio de correo electronico se debe colocar un email real)
-                "Ximen@Ru123" // Contraseña
+                "1092455518", // Identificación
+                "Daniela Losada", // Nombre
+                "3122645894", // Número de teléfono
+                "Conj San Jose", // Dirección
+                "danielai.losadar@uqvirtual.edu.co", // Correo   (para que funcione el envio de correo electronico se debe colocar un email real)
+                "Daniel@Lo20" // Contraseña
         );
         assertDoesNotThrow(() -> {
             String id = cuentaServicio.crearCuenta(crearCuentaDTO);
@@ -59,8 +59,8 @@ public class CuentaTest {
     @Test
     public void activarCuentaTest() throws Exception {
         ActivarCuentaDTO activarCuentaDTO = new ActivarCuentaDTO(
-                "angiex.ruizr@uqvirtual.edu.co",
-        "UhSkgy9kso");
+                "danielai.losadar@uqvirtual.edu.co",
+        "urvvjk33RI");
         cuentaServicio.activarCuenta(activarCuentaDTO);
 
     }

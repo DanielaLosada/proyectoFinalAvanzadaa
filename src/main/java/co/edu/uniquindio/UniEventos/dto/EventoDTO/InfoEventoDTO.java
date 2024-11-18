@@ -9,13 +9,13 @@ import java.util.List;
 
 public record InfoEventoDTO(
         String imagenPortada,
+        String imagenLocalidades,
         String nombre,
         String descripcion,
         String direccion,
         TipoEvento tipoEvento,
         LocalDateTime fecha,
         String ciudad,
-        List<Localidad> listaLocalidades,
-        List<Alojamiento> alojamientosCercanos
+        List<Localidad> listaLocalidades
 ) {
 }

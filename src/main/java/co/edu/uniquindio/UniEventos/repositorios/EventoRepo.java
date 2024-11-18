@@ -16,8 +16,13 @@ public interface EventoRepo extends MongoRepository<Evento, String> {
     Optional<Evento> findByNombre(String nombre);
 
     // Filtra eventos por nombre, tipo y ciudad, con coincidencias parciales (insensible a mayúsculas)
-    @Query("{'nombre': {$regex: ?0, $options: 'i'}, 'tipo': {$regex: ?1, $options: 'i'}, 'ciudad': {$regex: ?2, $options: 'i'}}")
+    @Query("{ $and: ["
+            + "{ $or: [ { 'nombre': { $regex: ?0, $options: 'i' } }, { ?0: { $exists: false } } ] },"
+            + "{ $or: [ { 'tipo': { $regex: ?1, $options: 'i' } }, { ?1: { $exists: false } } ] },"
+            + "{ $or: [ { 'ciudad': { $regex: ?2, $options: 'i' } }, { ?2: { $exists: false } } ] }"
+            + "] }")
     List<Evento> filtrarEventos(String nombre, String tipo, String ciudad);
+
 
     long countByEstado(EstadoEvento estado);
 
@@ -34,5 +39,23 @@ public interface EventoRepo extends MongoRepository<Evento, String> {
     // Busca eventos con alojamientos cercanos disponibles en una ciudad específica
     @Query("{ 'ciudad': ?0, 'alojamientosCercanos': { $exists: true, $not: { $size: 0 } }, 'alojamientosCercanos.direccion': { $regex: ?1, $options: 'i' } }")
     List<Evento> buscarConAlojamientosCercanos(String ciudad, String direccion);
+
+    // Búsqueda solo por nombre
+    List<Evento> findByNombreRegex(String nombre);
+
+    // Búsqueda solo por ciudad
+    List<Evento> findByCiudadRegex(String ciudad);
+
+    // Búsqueda por nombre y tipo
+    List<Evento> findByNombreRegexAndTipo(String nombre, String tipo);
+
+    // Búsqueda por nombre y ciudad
+    List<Evento> findByNombreRegexAndCiudadRegex(String nombre, String ciudad);
+
+    // Búsqueda por tipo y ciudad
+    List<Evento> findByTipoAndCiudadRegex(String tipo, String ciudad);
+
+    // Búsqueda por nombre, tipo y ciudad
+    List<Evento> findByNombreRegexAndTipoAndCiudadRegex(String nombre, String tipo, String ciudad);
 
 }

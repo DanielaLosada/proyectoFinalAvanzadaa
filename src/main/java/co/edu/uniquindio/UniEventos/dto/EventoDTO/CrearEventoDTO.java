@@ -18,7 +18,7 @@ public record CrearEventoDTO(
         @NotBlank(message = "La dirección es obligatoria") @Size(max = 350, message = "La dirección no puede exceder los 350 caracteres") String direccion,
         @NotBlank(message = "La ciudad es obligatoria") @Size(max = 60, message = "La ciudad no puede exceder los 60 caracteres") String ciudad,
         @NotNull(message = "La fecha es obligatoria") LocalDateTime fecha,
-        @NotBlank(message = "El tipo de evento es obligatorio") TipoEvento tipo,
+        @NotNull(message = "El tipo de evento es obligatorio") TipoEvento tipo,
         @URL(message = "La URL de la imagen del poster debe ser válida") String imagenPortada,
         @URL(message = "La URL de la imagen de localidades debe ser válida") String imagenLocalidad,
         @NotNull(message = "La lista de localidades es obligatoria") List<LocalidadDTO> localidades

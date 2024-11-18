@@ -1,16 +1,17 @@
 package co.edu.uniquindio.UniEventos.controllers;
 
 import co.edu.uniquindio.UniEventos.dto.EmailDTO.MensajeDTO;
+import co.edu.uniquindio.UniEventos.dto.EventoDTO.FiltroEventoDTO;
+import co.edu.uniquindio.UniEventos.dto.EventoDTO.InfoEventoDTO;
 import co.edu.uniquindio.UniEventos.dto.EventoDTO.ItemEventoDTO;
 import co.edu.uniquindio.UniEventos.modelo.Cuenta;
 import co.edu.uniquindio.UniEventos.modelo.Evento;
+import co.edu.uniquindio.UniEventos.modelo.TipoEvento;
 import co.edu.uniquindio.UniEventos.servicios.interfaces.CuentaServicio;
 import co.edu.uniquindio.UniEventos.servicios.interfaces.EventoServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +33,21 @@ public class PublicoController {
         return ResponseEntity.ok(new MensajeDTO<>(false, tipos));
     }
 
+    @GetMapping("/evento/obtener-evento/{nombre}")
+    public ResponseEntity<MensajeDTO<InfoEventoDTO>> obtenerEvento(@PathVariable String nombre) throws Exception {
+        InfoEventoDTO evento = eventoServicio.obtenerInformacionEvento(nombre);
+        return ResponseEntity.ok(new MensajeDTO<>(false, evento));
+    }
 
+    @GetMapping("/evento/filtrar-eventos")
+    public ResponseEntity<MensajeDTO<List<ItemEventoDTO>>> filtrarEventos(
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) TipoEvento tipoEvento,
+            @RequestParam(required = false) String ciudad) {
+        FiltroEventoDTO filtroEventoDTO = new FiltroEventoDTO(nombre, tipoEvento, ciudad);
+        System.out.println("Filtro recibido: " + filtroEventoDTO);
+        List<ItemEventoDTO> tipos = eventoServicio.filtrarEventos(filtroEventoDTO);
+        return ResponseEntity.ok(new MensajeDTO<>(false, tipos));
+    }
 
 }
