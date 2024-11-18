@@ -37,12 +37,12 @@ public class CuentaTest {
     @Test
     public void crearCuentaTest() {
         CrearCuentaDTO crearCuentaDTO = new CrearCuentaDTO(
-                "1092455518", // Identificación
-                "Daniela Losada", // Nombre
-                "3122645894", // Número de teléfono
+                "11111111", // Identificación
+                "Pepe perez", // Nombre
+                "3535", // Número de teléfono
                 "Conj San Jose", // Dirección
-                "danielai.losadar@uqvirtual.edu.co", // Correo   (para que funcione el envio de correo electronico se debe colocar un email real)
-                "Daniel@Lo20" // Contraseña
+                "angiex.ruizr@uqvirtual.edu.co", // Correo   (para que funcione el envio de correo electronico se debe colocar un email real)
+                "AXRR266" // Contraseña
         );
         assertDoesNotThrow(() -> {
             String id = cuentaServicio.crearCuenta(crearCuentaDTO);
